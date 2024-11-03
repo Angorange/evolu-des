@@ -1,18 +1,40 @@
+#include <FastLED.h>
 #include <Arduino.h>
+#include "sys/evo_system.h"
+#include "dev/evo_flatdie.h"
 
-// put function declarations here:
-int myFunction(int, int);
+using namespace evolutic;
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+#define LED_PIN     21    // Pin connected to the data input of the LED strip
+#define LED_COUNT   40
+#define BRIGHTNESS  16    // Set brightness (0-255)
+#define LED_TYPE    WS2812
+#define COLOR_ORDER GRB
+#define BP          22    // Pin for the button
+
+#pragma error
+
+CRGB gs_pLed[LED_COUNT];
+FlatDie gs_pDice[5];
+
+void setup() 
+{
+  evolutic::init();
+
+  FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(gs_pLed, LED_COUNT);
+  FastLED.setBrightness(BRIGHTNESS);
+
+  for (int i = 0; i < 5; ++i)
+  {
+    gs_pDice[i].init(&gs_pLed[i * 8]);
+    gs_pDice[i].setValue(i + 1);
+    gs_pDice[i].updateLed();
+  }
+
+  FastLED.show();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop() 
+{
+  FastLED.show();
 }
