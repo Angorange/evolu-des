@@ -1,20 +1,21 @@
+#ifndef SYS_EVO_TYPES_H
+#define SYS_EVO_TYPES_H
+
 #pragma once
 
-namespace evolutic
-{
-    using u8 = unsigned char;
+namespace evolutic {
+using u8 = unsigned char;
 
-    struct RGB
-    {
-        union
-        {
-            struct
-            {
-                u8 r_;
-                u8 g_;
-                u8 b_;
-            };
-            u8 rgb[3];
-        };
+struct RGB {
+  union {
+    struct {
+      u8 r;
+      u8 g;
+      u8 b;
     };
-}
+    u8 rgb[3];
+  };
+};
+} // namespace evolutic
+
+#endif

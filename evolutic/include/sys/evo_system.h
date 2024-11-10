@@ -1,6 +1,5 @@
 #pragma once
 
-namespace evolutic
-{
-    void init();
+namespace evolutic {
+void init();
 }
